@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.soupday.cc3_unity_tools": "file:C:/Users/Jeongmin/Downloads/cc_unity_tools_3D-main/cc_unity_tools_3D-main",
+    "com.soupday.cc3_unity_tools": "https://github.com/soupday/cc_unity_tools_3D.git",
     "com.unity.collab-proxy": "2.0.7",
     "com.unity.feature.development": "1.0.1",
     "com.unity.textmeshpro": "3.0.6",

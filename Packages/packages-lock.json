@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "com.soupday.cc3_unity_tools": {
-      "version": "file:C:/Users/Jeongmin/Downloads/cc_unity_tools_3D-main/cc_unity_tools_3D-main",
+      "version": "https://github.com/soupday/cc_unity_tools_3D.git",
       "depth": 0,
-      "source": "local",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "17595e637ba6826853be739caedd04f39a3bae83"
     },
     "com.unity.collab-proxy": {
       "version": "2.0.7",
