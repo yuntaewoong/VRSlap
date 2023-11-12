@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        GetSlapped();
+        //GetSlapped();
     }
     public void GetSlapped()
     {

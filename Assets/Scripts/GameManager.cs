@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     private ETurn turn = ETurn.Player;
     private int timerCount;
-
+    private Coroutine timerCorutine;
     public ETurn Turn
     {
         get => turn;
@@ -23,8 +23,10 @@ public class GameManager : MonoBehaviour
     }
     private void StartTurn()
     {
+        if(timerCorutine != null)
+            StopCoroutine(timerCorutine);
         timerCount = maxTimerCount;
-        StartCoroutine(Timer());
+        timerCorutine = StartCoroutine(Timer());
     }
     IEnumerator Timer()
     {
