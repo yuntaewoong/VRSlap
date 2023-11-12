@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325f3f4f9e4a80741b45bbf521ae47eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxTimer: 7
 --- !u!4 &253464652
 Transform:
   m_ObjectHideFlags: 0
@@ -1007,7 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5865dd242ad034b83670c0e294db1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
+  maxHp: 3
 --- !u!1 &1667685995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,6 +1293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe659c3b826a5c442b6b4198a5d66d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 3
 --- !u!114 &52294928227076113
 MonoBehaviour:
   m_ObjectHideFlags: 0
