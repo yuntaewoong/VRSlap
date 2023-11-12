@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private int maxHp;
+    private int hp = 0;
     void Start()
     {
-        
+        hp = maxHp;
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        //GetSlapped();
+    }
+    public void GetSlapped()
+    {
+        Debug.Log("Slapped Player");
+        hp--;
+        GameManager.Instance.Turn = ETurn.Enemy;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

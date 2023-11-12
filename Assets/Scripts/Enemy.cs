@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public MeshRenderer meshRenderer;
-    void OnCollisionEnter(Collision collision)
+    [SerializeField] private int maxHp;
+    [SerializeField] private Animator animator;
+    private int hp = 0;
+    void Start()
     {
-        Debug.Log("Slap!");
-        meshRenderer.material.color = Color.red;
-        StartCoroutine(SlapDebug());
+        hp = maxHp;
     }
-    IEnumerator SlapDebug()
+    void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(1.0f);
-        meshRenderer.material.color = Color.black ;
+        Debug.Log("OnTriggerEnter");
+        GetSlapped();
+    }
+    public void GetSlapped()
+    {
+        Debug.Log("Slapped Enemy");
+        hp--;
+        GameManager.Instance.Turn = ETurn.Player;
+        animator.SetBool("IsSlapped", true);
     }
 }
