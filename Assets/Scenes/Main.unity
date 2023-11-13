@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325f3f4f9e4a80741b45bbf521ae47eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTimerCount: 7
+  maxTimerCount: 3
   player: {fileID: 2056375611}
   enemy: {fileID: 1552937054}
 --- !u!4 &253464652
@@ -985,61 +985,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6918589143416365402, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 320370678834751830, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1552937058}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
---- !u!1 &1552937053 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 320370678834751830, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
-  m_PrefabInstance: {fileID: 1552937052}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1552937054 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1957969002157187611, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
   m_PrefabInstance: {fileID: 1552937052}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552937053}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc5865dd242ad034b83670c0e294db1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &1552937058
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552937053}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1667685995
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             timerCount--;
             Debug.Log(timerCount);
             if (timerCount == 0)
-            {//제한시간 종료
+            {//제한시간 종료되면 맞은걸로 친다
                 switch (turn)
                 {
                     case ETurn.Player:

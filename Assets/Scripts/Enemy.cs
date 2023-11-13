@@ -22,5 +22,15 @@ public class Enemy : MonoBehaviour
         hp--;
         GameManager.Instance.Turn = ETurn.Player;
         animator.SetBool("IsSlapped", true);
+        StartCoroutine(ReturnToIdle());
+    }
+    IEnumerator ReturnToIdle()
+    { 
+        yield return new WaitForSeconds(3.0f);
+        if(animator.GetBool("IsSlapped"))
+        {
+            animator.SetBool("IsSlapped", false);
+        }
+        
     }
 }
