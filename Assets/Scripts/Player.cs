@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     {
         hp = maxHp;
     }
+    
+
+
     void OnCollisionEnter(Collision collision)
     {
         //GetSlapped();
