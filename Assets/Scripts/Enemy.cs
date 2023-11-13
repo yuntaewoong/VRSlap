@@ -7,6 +7,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int maxHp;
     [SerializeField] private Animator animator;
     private int hp = 0;
+    public int Hp
+    {
+        get => hp;
+    }
     void Start()
     {
         hp = maxHp;
