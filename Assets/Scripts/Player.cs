@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Slapped Player");
         hp--;
-        GameManager.Instance.Turn = ETurn.Enemy;
+        
+        GameManager.Instance.isStopTimer = true;
     }
 
 }

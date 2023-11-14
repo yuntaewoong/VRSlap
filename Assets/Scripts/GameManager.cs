@@ -6,12 +6,16 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
     [SerializeField] private int maxTimerCount;
+    [SerializeField] private float stopTime;
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
 
-    private ETurn turn = ETurn.Player;
-    private int timerCount;
+    private ETurn turn;
     private Coroutine timerCorutine;
+
+    public bool isStopTimer;
+    public int timerCount;
+
     public ETurn Turn
     {
         get => turn;
@@ -23,13 +27,21 @@ public class GameManager : MonoBehaviour
     }
     private void StartTurn()
     {
-        if(timerCorutine != null)
+        if (timerCorutine != null)
             StopCoroutine(timerCorutine);
         timerCount = maxTimerCount;
         timerCorutine = StartCoroutine(Timer());
+
+        if (turn == ETurn.Player) enemy.SetAttackTime(maxTimerCount);
     }
-    IEnumerator Timer()
+    public IEnumerator Timer()
     {
+        if (isStopTimer)
+        {
+            yield return new WaitForSeconds(stopTime);
+            isStopTimer = false;
+        }
+        
         while (true)
         {
             yield return new WaitForSeconds(1.0f);
@@ -41,9 +53,12 @@ public class GameManager : MonoBehaviour
                 {
                     case ETurn.Player:
                         player.GetSlapped();
+                        Turn = ETurn.Enemy;
+                        enemy.SetAvoidTime(maxTimerCount);
                         break;
                     case ETurn.Enemy:
                         enemy.GetSlapped();
+                        Turn = ETurn.Player;
                         break;
                 }
                 break;//코루틴 종료
@@ -53,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        turn = ETurn.Player;
         StartTurn();
         if (null == instance)
         {
