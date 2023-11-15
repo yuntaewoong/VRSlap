@@ -9,6 +9,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private int maxHp;
+    [SerializeField] private Transform centerEyeAnchor;
     private int hp = 0;
     public int Hp
     {
@@ -34,6 +35,18 @@ public class Player : MonoBehaviour
     }
     private void InitPosition()
     {
-        OVRManager.display.RecenterPose();
+        RecenterHeadset();
+    }
+    private void RecenterHeadset()
+    {
+        if (OVRManager.display != null)
+        {
+            float currentRotY = centerEyeAnchor.transform.eulerAngles.y; //This refence a CenterEyeAnchor
+            float difference = 0 - currentRotY;
+            gameObject.transform.Rotate(0, difference, 0); // InteractionSystem.Anchor This refence a Player
+
+            Vector3 newPos = new Vector3(0 - centerEyeAnchor.transform.position.x, 0, 0 - centerEyeAnchor.transform.position.z);
+            gameObject.transform.position += newPos;
+        }
     }
 }
