@@ -1,11 +1,14 @@
+using Oculus.Interaction.Samples;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using Unity.XR.Oculus;
+using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private int maxHp;
-    [SerializeField] private Transform playerInitTransform;
     private int hp = 0;
     public int Hp
     {
@@ -19,11 +22,9 @@ public class Player : MonoBehaviour
     {//핸드트래킹 박수입력시 실행
         InitPosition();
     }
-
-
-    void OnCollisionEnter(Collision collision)
-    {
-        //GetSlapped();
+    private void OnTriggerEnter(Collider other)
+    {//플레이어가 싸대기 맞은 경우
+        GetSlapped();
     }
     public void GetSlapped()
     {
@@ -33,8 +34,6 @@ public class Player : MonoBehaviour
     }
     private void InitPosition()
     {
-        gameObject.transform.position = playerInitTransform.position;
-        gameObject.transform.rotation = playerInitTransform.rotation;
+        OVRManager.display.RecenterPose();
     }
-
 }
