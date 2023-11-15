@@ -36,7 +36,7 @@ public class ClapDetector : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Vector3.Distance(rightHand.transform.position, leftHand.transform.position));
+        //Debug.Log(Vector3.Distance(rightHand.transform.position, leftHand.transform.position));
         if (rightHand.IsTracked && leftHand.IsTracked)
         {
             if (!clapInvoked && Vector3.Distance(rightHand.transform.position, leftHand.transform.position) <= thresholdDistance

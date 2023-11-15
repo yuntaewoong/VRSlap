@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f);
             timerCount--;
-            Debug.Log(timerCount);
+            //Debug.Log(timerCount);
             if (timerCount == 0)
             {//제한시간 종료되면 맞은걸로 친다
                 switch (turn)

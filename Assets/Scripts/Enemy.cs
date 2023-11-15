@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
         hp = maxHp;
     }
     void OnTriggerEnter(Collider other)
-    {
+    {//적이 싸대기 맞은 경우
         Debug.Log("OnTriggerEnter");
         GetSlapped();
     }
