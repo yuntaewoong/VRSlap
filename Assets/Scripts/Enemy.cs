@@ -18,6 +18,12 @@ public class Enemy : MonoBehaviour
     private int attackTime;
     private Coroutine attackTimerCoroutine;
     private AudioSource slapsound;
+
+
+    public int Hp
+    {
+        get => hp;
+    }
     void Start()
     {
         hp = maxHp;
@@ -27,7 +33,7 @@ public class Enemy : MonoBehaviour
 
     }
     void OnTriggerEnter(Collider other)
-    {
+    {//적이 싸대기 맞은 경우
         Debug.Log("OnTriggerEnter");
         GetSlapped();
     }
