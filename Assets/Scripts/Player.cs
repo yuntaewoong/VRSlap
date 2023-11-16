@@ -6,9 +6,11 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int maxHp;
     private int hp = 0;
+    // private AudioSource slapsound;
     void Start()
     {
         hp = maxHp;
+       // slapsound = GetComponent<AudioSource>();
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -18,7 +20,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Slapped Player");
         hp--;
-        
+     //   this.slapsound.Play();
         GameManager.Instance.isStopTimer = true;
     }
 

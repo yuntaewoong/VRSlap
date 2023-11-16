@@ -17,12 +17,14 @@ public class Enemy : MonoBehaviour
     // Enemy의 turn일 경우, 공격할 때
     private int attackTime;
     private Coroutine attackTimerCoroutine;
-
+    private AudioSource slapsound;
     void Start()
     {
         hp = maxHp;
         avoidTime = new Stack<int>();
         nextAvoidTime = -10;
+        slapsound = GetComponent<AudioSource>();
+
     }
     void OnTriggerEnter(Collider other)
     {
@@ -33,6 +35,7 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("Slapped Enemy");
         hp--;
+        this.slapsound.Play();
         animator.SetBool("IsSlapped", true);
         GameManager.Instance.isStopTimer = true;
         StartCoroutine(ReturnToIdle());
