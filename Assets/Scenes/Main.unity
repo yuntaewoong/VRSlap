@@ -451,7 +451,7 @@ MonoBehaviour:
   maxTimerCount: 6
   stopTime: 0
   player: {fileID: 2056375611}
-  enemy: {fileID: 0}
+  enemy: {fileID: 1406807300}
   isStopTimer: 0
   timerCount: 0
 --- !u!4 &253464652
@@ -1696,6 +1696,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400725072}
   m_CullTransparentMesh: 1
+--- !u!114 &1406807300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1957969002157187611, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
+  m_PrefabInstance: {fileID: 1552937052}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc5865dd242ad034b83670c0e294db1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1429907063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2697,7 +2708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1774045627286657560, guid: 8bbe2b162bf4b8041a7003ca06a9c91e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.56
+      value: 0.997
       objectReference: {fileID: 0}
     - target: {fileID: 1774045627286657560, guid: 8bbe2b162bf4b8041a7003ca06a9c91e, type: 3}
       propertyPath: m_LocalPosition.z

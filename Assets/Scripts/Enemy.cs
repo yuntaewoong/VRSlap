@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("Slapped Enemy");
         hp--;
-        this.slapsound.Play();
+        //this.slapsound.Play();
         animator.SetBool("IsSlapped", true);
         GameManager.Instance.isStopTimer = true;
         StartCoroutine(ReturnToIdle());
@@ -65,7 +65,6 @@ public class Enemy : MonoBehaviour
             {
                 tempTime += randomTime;
                 avoidTime.Push(tempTime); // avoidTime에 피할 시간을 미리 정해 놓음
-                Debug.Log("tempTime" + tempTime);
             }
             else break;
         }
@@ -129,8 +128,10 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(1.8f);
         // 플레이어 맞음
-        Debug.Log("Player Attacked!");
-        yield return new WaitForSeconds(0.7f);
-        GameManager.Instance.Turn = ETurn.Enemy;
+        GameManager.Instance.player.GetSlapped();
+        yield return new WaitForSeconds(0.3f);
+        animator.speed = 0.0f;
+        yield return new WaitForSeconds(1.5f);
+        animator.speed = 1.0f;
     }
 }
