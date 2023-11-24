@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHp;
     [SerializeField] private Transform centerEyeAnchor;
     private int hp = 0;
-    // private AudioSource slapsound;
+    private AudioSource slapsound;
     public int Hp
     {
         get => hp;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         hp = maxHp;
-       // slapsound = GetComponent<AudioSource>();
+        slapsound = GetComponent<AudioSource>();
     }
     public void OnClap()
     {//핸드트래킹 박수입력시 실행
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Slapped Player");
         hp--;
-     //   this.slapsound.Play();
+        //this.slapsound.Play();
         GameManager.Instance.isStopTimer = true;
     }
     private void InitPosition()
