@@ -43,7 +43,7 @@ public class ClapDetector : MonoBehaviour
                 && rightHandVelocity.x < -0.15f && leftHandVelocity.x > 0.15f)
             {
                 onClap.Invoke();
-                Instantiate(clapFeedback, rightHand.transform.position, Quaternion.identity);
+               // Instantiate(clapFeedback, rightHand.transform.position, Quaternion.identity);
                 clapInvoked = true;
             }
 

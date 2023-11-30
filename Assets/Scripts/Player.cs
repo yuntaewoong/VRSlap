@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Slapped Player");
         hp--;
-        //this.slapsound.Play();
+        this.slapsound.Play();
         GameManager.Instance.isStopTimer = true;
     }
     private void InitPosition()
