@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance = null;
     [SerializeField] private int maxTimerCount;
     [SerializeField] private float stopTime;
-    [SerializeField] private Player player;
+    [SerializeField] public Player player;
     [SerializeField] private Enemy enemy;
 
     private ETurn turn;
