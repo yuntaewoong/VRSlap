@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -19,6 +20,35 @@ public class Enemy : MonoBehaviour
     private Coroutine attackTimerCoroutine;
     private AudioSource slapsound;
 
+
+    //hp
+    int maxHP = 4;
+    int currentHp = 4;
+
+    [SerializeField] Image[] hpImage = null;
+
+    public void DecreaseHp(int p_num)
+    {
+        currentHp -= p_num;
+
+        if (currentHp <= 0)
+        {
+            //hp가 0이 될 시
+            Debug.Log("승리");
+        }
+        SettingHpImage();
+    }
+
+    void SettingHpImage()
+    {
+        for (int i = 0; i < hpImage.Length; i++)
+        {
+            if (i < currentHp)
+                hpImage[i].gameObject.SetActive(true);
+            else
+                hpImage[i].gameObject.SetActive(false);
+        }
+    }
 
     public int Hp
     {
@@ -40,6 +70,7 @@ public class Enemy : MonoBehaviour
     public void GetSlapped()
     {
         Debug.Log("Slapped Enemy");
+        DecreaseHp(1); //hp-1
         hp--;
         //this.slapsound.Play();
         animator.SetBool("IsSlapped", true);

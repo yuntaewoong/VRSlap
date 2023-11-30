@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using Unity.XR.Oculus;
 using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,36 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform centerEyeAnchor;
     private Transform vrCamera;
     private int hp = 0;
+
+    //hp
+    int maxHP = 4;
+    int currentHp = 4;
+
+    [SerializeField] Image[] hpImage = null;
+    
+    public void DecreaseHp(int p_num)
+    {
+        currentHp -= p_num;
+
+        if(currentHp <= 0)
+        {
+            //hp가 0이 될 시
+            Debug.Log("패배");
+        }
+        SettingHpImage();
+    }
+
+    void SettingHpImage()
+    {
+        for (int i = 0; i < hpImage.Length; i++)
+        {
+            if (i < currentHp)
+                hpImage[i].gameObject.SetActive(true);
+            else
+                hpImage[i].gameObject.SetActive(false);
+        }
+    }
+
     // private AudioSource slapsound;
     public int Hp
     {
@@ -30,12 +61,15 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {//플레이어가 싸대기 맞은 경우
         GetSlapped();
+
+         
     }
     public void GetSlapped()
     {
         Debug.Log("Slapped Player");
         hp--;
-     //   this.slapsound.Play();
+        DecreaseHp(1); //hp-1
+        //   this.slapsound.Play();
         GameManager.Instance.isStopTimer = true;
         GameManager.Instance.Turn = ETurn.Enemy;
 
