@@ -5,12 +5,12 @@ public enum ETurn { Player, Enemy };
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
-    [SerializeField] private int maxTimerCount;
+    [SerializeField] public int maxTimerCount;
     [SerializeField] private float stopTime;
     [SerializeField] public Player player;
     [SerializeField] private Enemy enemy;
 
-    private ETurn turn;
+    [SerializeField] private ETurn turn;
     private Coroutine timerCorutine;
 
     public bool isStopTimer;
@@ -32,7 +32,9 @@ public class GameManager : MonoBehaviour
         timerCount = maxTimerCount;
         timerCorutine = StartCoroutine(Timer());
 
-        if (turn == ETurn.Player) enemy.SetAttackTime(maxTimerCount);
+        if (turn == ETurn.Player) 
+            enemy.attackCoroutine = StartCoroutine(enemy.SetAttackTime(maxTimerCount));
+        else enemy.SetAvoidTime(maxTimerCount);
     }
     public IEnumerator Timer()
     {
@@ -47,21 +49,12 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             timerCount--;
             //Debug.Log(timerCount);
+
             if (timerCount == 0)
-            {//제한시간 종료되면 맞은걸로 친다
-                switch (turn)
-                {
-                    case ETurn.Player:
-                        player.GetSlapped();
-                        Turn = ETurn.Enemy;
-                        enemy.SetAvoidTime(maxTimerCount);
-                        break;
-                    case ETurn.Enemy:
-                        enemy.GetSlapped();
-                        Turn = ETurn.Player;
-                        break;
-                }
-                break;//코루틴 종료
+            {
+                if (turn == ETurn.Player) Turn = ETurn.Enemy;
+                else Turn = ETurn.Player;
+                break;
             }
         }
     }

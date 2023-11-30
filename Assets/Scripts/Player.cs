@@ -69,8 +69,6 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {//플레이어가 싸대기 맞은 경우
         GetSlapped();
-
-         
     }
     public void GetSlapped()
     {
