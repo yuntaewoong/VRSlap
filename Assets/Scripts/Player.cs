@@ -44,6 +44,14 @@ public class Player : MonoBehaviour
     }
 
     private AudioSource slapsound;
+
+    void PlaySlapSound(int volume)
+    {
+        this.slapsound.volume = volume * 0.01f;
+        this.slapsound.Play();
+
+    }
+
     public int Hp
     {
         get => hp;
@@ -69,7 +77,7 @@ public class Player : MonoBehaviour
         Debug.Log("Slapped Player");
         hp--;
         DecreaseHp(1); //hp-1
-        this.slapsound.Play();
+        PlaySlapSound(100);
         GameManager.Instance.isStopTimer = true;
         GameManager.Instance.Turn = ETurn.Enemy;
 

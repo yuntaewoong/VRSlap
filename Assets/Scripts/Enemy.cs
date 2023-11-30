@@ -20,6 +20,12 @@ public class Enemy : MonoBehaviour
     private Coroutine attackTimerCoroutine;
     private AudioSource slapsound;
 
+    void PlaySlapSound(int volume)
+    {
+        this.slapsound.volume = volume * 0.01f;
+        this.slapsound.Play();
+
+    }
 
     //hp
     int maxHP = 4;
@@ -72,7 +78,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("Slapped Enemy");
         DecreaseHp(1); //hp-1
         hp--;
-        //this.slapsound.Play();
+        PlaySlapSound(100);
         animator.SetBool("IsSlapped", true);
         GameManager.Instance.isStopTimer = true;
         StartCoroutine(ReturnToIdle());
