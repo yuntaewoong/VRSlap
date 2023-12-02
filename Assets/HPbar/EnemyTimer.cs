@@ -15,45 +15,26 @@ public class EnemyTimer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SliderTimer = GameManager.Instance.maxTimerCount;
         Enemy_timer.maxValue = SliderTimer;
         Enemy_timer.value = SliderTimer;
-
-        StartTimer();
     }
 
     public void StartTimer()
     {
-   
-
+        StopTimer = false;
         StartCoroutine(StartTimerTicker());
     }
 
     IEnumerator StartTimerTicker()
     {
-        yield return new WaitForSeconds(15f);
-
-        while (StopTimer == false)
+        SliderTimer = GameManager.Instance.maxTimerCount;
+        while (StopTimer == false && SliderTimer >= 0)
         {
-
             SliderTimer -= Time.deltaTime;
+            Enemy_timer.value = SliderTimer;
             yield return new WaitForSeconds(0.001f);
-
-
-            if (SliderTimer <= 0)
-            {
-                yield return new WaitForSeconds(15f);
-                SliderTimer = 15;
-            }
-            if (StopTimer == false)
-            {
-                
-                Enemy_timer.value = SliderTimer;
-           
-            }
-
         }
-
-
     }
     
 

@@ -14,77 +14,77 @@ public class Player : MonoBehaviour
     private Transform vrCamera;
     private int hp = 0;
 
-    //hp
-    int maxHP = 4;
-    int currentHp = 4;
-
     [SerializeField] Image[] hpImage = null;
-    
-    public void DecreaseHp(int p_num)
-    {
-        currentHp -= p_num;
-
-        if(currentHp <= 0)
-        {
-            //hp가 0이 될 시
-            Debug.Log("패배");
-        }
-        SettingHpImage();
-    }
+    private AudioSource slapsound;
+    public PlayerTimer timer;
 
     void SettingHpImage()
     {
         for (int i = 0; i < hpImage.Length; i++)
         {
-            if (i < currentHp)
+            if (i < hp)
                 hpImage[i].gameObject.SetActive(true);
             else
                 hpImage[i].gameObject.SetActive(false);
         }
     }
 
-    private AudioSource slapsound;
-
     void PlaySlapSound(int volume)
     {
         this.slapsound.volume = volume * 0.01f;
         this.slapsound.Play();
-
     }
 
     public int Hp
     {
         get => hp;
     }
+
     void Start()
     {
         hp = maxHp;
         slapsound = GetComponent<AudioSource>();
         vrCamera = transform.GetChild(0);
     }
+
     public void OnClap()
     {//핸드트래킹 박수입력시 실행
         InitPosition();
     }
+
     private void OnTriggerEnter(Collider other)
     {//플레이어가 싸대기 맞은 경우
         GetSlapped();
     }
+
     public void GetSlapped()
     {
         Debug.Log("Slapped Player");
         hp--;
-        DecreaseHp(1); //hp-1
+
+        // HP 0 => 패배
+        if (hp <= 0)
+        {
+            //hp가 0이 될 시
+            Debug.Log("패배");
+            GameManager.Instance.gameOver = true;
+        }
+
+        // UI
+        SettingHpImage();
+        // Sound
+        PlaySlapSound(100);
+
         PlaySlapSound(100);
         GameManager.Instance.isStopTimer = true;
-        GameManager.Instance.Turn = ETurn.Enemy;
-
         StartCoroutine(CameraRotateAfterSlaped());
     }
+
     private void InitPosition()
     {
         RecenterHeadset();
     }
+
     private void RecenterHeadset()
     {
         if (OVRManager.display != null)
@@ -97,6 +97,7 @@ public class Player : MonoBehaviour
             gameObject.transform.position += newPos;
         }
     }
+
     IEnumerator CameraRotateAfterSlaped()
     {
         float elapsedTime = 0;

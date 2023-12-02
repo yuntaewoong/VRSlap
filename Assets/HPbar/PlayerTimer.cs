@@ -15,38 +15,25 @@ public class PlayerTimer : MonoBehaviour
     void Start()
     {
 
+        SliderTimer = GameManager.Instance.maxTimerCount;
         Player_Timer.maxValue = SliderTimer;
         Player_Timer.value = SliderTimer;
-
-        StartTimer();
     }
     public void StartTimer()
     {
+        StopTimer = false;
         StartCoroutine(StartTimerTicker());
     }
 
     IEnumerator StartTimerTicker()
     {
-
-        while (StopTimer == false)
+        SliderTimer = GameManager.Instance.maxTimerCount;
+        while (StopTimer == false && SliderTimer >= 0)
         {
             SliderTimer -= Time.deltaTime;
+            Player_Timer.value = SliderTimer;
             yield return new WaitForSeconds(0.001f);
-
-            if (SliderTimer <= 0)
-            {
-                yield return new WaitForSeconds(15f);
-                SliderTimer = 15;
-            }
-            if (StopTimer == false)
-            {
-                Player_Timer.value = SliderTimer;
-            }
-
         }
-
-        
-
     }
     public void stopTimer()
     {

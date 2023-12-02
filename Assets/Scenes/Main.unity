@@ -533,8 +533,10 @@ MonoBehaviour:
   stopTime: 2
   player: {fileID: 2056375611}
   enemy: {fileID: 1552937056}
+  turn: 0
   isStopTimer: 0
   timerCount: 0
+  gameOver: 0
 --- !u!4 &253464652
 Transform:
   m_ObjectHideFlags: 0
@@ -2983,6 +2985,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1957969002157187611, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
+      propertyPath: maxHp
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957969002157187611, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 70227705}
+    - target: {fileID: 1957969002157187611, guid: 0ed83892d042b154fa33ecfc0c8a59bf, type: 3}
       propertyPath: hpImage.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -4157,6 +4167,14 @@ PrefabInstance:
       propertyPath: heart
       value: 
       objectReference: {fileID: 21300000, guid: 317736b320265a1458e699c10e7d6b7e, type: 3}
+    - target: {fileID: 180349815100074910, guid: 8bbe2b162bf4b8041a7003ca06a9c91e, type: 3}
+      propertyPath: maxHp
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 180349815100074910, guid: 8bbe2b162bf4b8041a7003ca06a9c91e, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 1121400029}
     - target: {fileID: 180349815100074910, guid: 8bbe2b162bf4b8041a7003ca06a9c91e, type: 3}
       propertyPath: health
       value: 4

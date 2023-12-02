@@ -8,18 +8,22 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int maxHp;
     [SerializeField] private Animator animator;
     private int hp = 0;
+    // 플레이어가 때릴 때, 턴당 한 번만 공격할 수 있게 함
+    public bool isHit;
 
     // 회피할 시간을 미리 정해서 stack에 쌓음
     private Stack<int> avoidTime;
     private Coroutine avoidTimerCoroutine;
     // 다음에 회피할 시각
     private int nextAvoidTime;
-    [SerializeField] private bool isAvoid;
+    private bool isAvoid;
     
     // Enemy의 turn일 경우, 공격할 때
     private int attackTime;
     public Coroutine attackCoroutine;
     private AudioSource slapsound;
+    public EnemyTimer timer;
+    [SerializeField] Image[] hpImage = null;
 
     void PlaySlapSound(int volume)
     {
@@ -28,29 +32,11 @@ public class Enemy : MonoBehaviour
 
     }
 
-    //hp
-    int maxHP = 4;
-    int currentHp = 4;
-
-    [SerializeField] Image[] hpImage = null;
-
-    public void DecreaseHp(int p_num)
-    {
-        currentHp -= p_num;
-
-        if (currentHp <= 0)
-        {
-            //hp가 0이 될 시
-            Debug.Log("승리");
-        }
-        SettingHpImage();
-    }
-
     void SettingHpImage()
     {
         for (int i = 0; i < hpImage.Length; i++)
         {
-            if (i < currentHp)
+            if (i < hp)
                 hpImage[i].gameObject.SetActive(true);
             else
                 hpImage[i].gameObject.SetActive(false);
@@ -61,21 +47,28 @@ public class Enemy : MonoBehaviour
     {
         get => hp;
     }
+
     void Start()
     {
         hp = maxHp;
+        isHit = false;
         avoidTime = new Stack<int>();
         nextAvoidTime = -10;
         slapsound = GetComponent<AudioSource>();
         isAvoid = false;
         if (GameManager.Instance.Turn == ETurn.Player)
+        {
             attackCoroutine = StartCoroutine(SetAttackTime(GameManager.Instance.maxTimerCount));
+            timer.StartTimer();
+        }
     }
+
     void OnTriggerEnter(Collider other)
     {   //적이 싸대기 맞은 경우
         Debug.Log("OnTriggerEnter");
-        // Player가 때릴 차례이고, Enemy가 피하지 않은 경우에만 Slap 처리함.
-        if (GameManager.Instance.Turn == ETurn.Enemy)
+        // Player가 때릴 차례이고, Enemy가 피하지 않았으며
+        // Enemy가 해당 턴에 맞지 않은 경우에만 Slap 처리함.
+        if (GameManager.Instance.Turn == ETurn.Enemy && !isHit)
         {
             if (!isAvoid) GetSlapped();
             //else counter;
@@ -84,14 +77,33 @@ public class Enemy : MonoBehaviour
     public void GetSlapped()
     {
         Debug.Log("Slapped Enemy");
-        DecreaseHp(1); //hp-1
         hp--;
+        isHit = true;
+
+        // Sound
         PlaySlapSound(100);
-        animator.SetBool("IsSlapped", true);
-        GameManager.Instance.isStopTimer = true;
-        StartCoroutine(ReturnToIdle());
-        GameManager.Instance.Turn = ETurn.Player;
+
+        if (hp > 0)
+        {
+            // Animation
+            animator.SetBool("IsSlapped", true);
+            StartCoroutine(ReturnToIdle());
+
+            GameManager.Instance.isStopTimer = true;
+        }
+        else
+        {
+            Debug.Log("승리");
+            // Animation
+            animator.SetTrigger("Defeat");
+            GameManager.Instance.isStopTimer = true;
+            GameManager.Instance.gameOver = true;
+        }
+
+        // UI
+        SettingHpImage();
     }
+
     IEnumerator ReturnToIdle()
     {
         yield return new WaitForSeconds(1.0f);
@@ -152,8 +164,8 @@ public class Enemy : MonoBehaviour
     public IEnumerator SetAttackTime(int timeToTurn)
     {
         // 미리 공격할 시간을 정해 놓음
-        // 3~timeToTurn-1 사이 임의의 값
-        attackTime = Random.Range(3, timeToTurn);
+        // 3~timeToTurn-2 사이 임의의 값
+        attackTime = Random.Range(3, timeToTurn-1);
 
         while (GameManager.Instance.timerCount > 0)
         {
@@ -179,5 +191,17 @@ public class Enemy : MonoBehaviour
         animator.speed = 0.0f;
         yield return new WaitForSeconds(1.5f);
         animator.speed = 1.0f;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Z))
+        {
+            if (GameManager.Instance.Turn == ETurn.Enemy && !isHit)
+            {
+                if (!isAvoid) GetSlapped();
+                //else counter;
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public bool isStopTimer;
     public int timerCount;
+    public bool gameOver;
 
     public ETurn Turn
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
             StartTurn();
         }
     }
+
     private void StartTurn()
     {
         if (timerCorutine != null)
@@ -32,35 +34,65 @@ public class GameManager : MonoBehaviour
         timerCount = maxTimerCount;
         timerCorutine = StartCoroutine(Timer());
 
-        if (turn == ETurn.Player) 
+        if (turn == ETurn.Player)
+        {
             enemy.attackCoroutine = StartCoroutine(enemy.SetAttackTime(maxTimerCount));
-        else enemy.SetAvoidTime(maxTimerCount);
+            enemy.timer.StartTimer();
+        }
+        else
+        {
+            enemy.SetAvoidTime(maxTimerCount);
+            player.timer.StartTimer();
+            enemy.isHit = false;
+        };
     }
+
     public IEnumerator Timer()
     {
-        if (isStopTimer)
+        while (!gameOver)
         {
-            yield return new WaitForSeconds(stopTime);
-            isStopTimer = false;
-        }
-        
-        while (true)
-        {
-            yield return new WaitForSeconds(1.0f);
-            timerCount--;
-            //Debug.Log(timerCount);
-
             if (timerCount == 0)
             {
                 if (turn == ETurn.Player) Turn = ETurn.Enemy;
                 else Turn = ETurn.Player;
                 break;
             }
+
+            if (!isStopTimer)
+            {
+                yield return new WaitForSeconds(1.0f);
+                timerCount--;
+                //Debug.Log(timerCount);
+            }
+            else // Player나 Enemy가 맞은 경우
+            {
+                if (turn == ETurn.Player) enemy.timer.stopTimer();
+                else player.timer.stopTimer();
+
+                yield return new WaitForSeconds(stopTime);
+
+                if (!gameOver)
+                {
+                    isStopTimer = false;
+
+                    if (turn == ETurn.Player) Turn = ETurn.Enemy;
+                    else Turn = ETurn.Player;
+                }
+                yield return null;
+            }
+        }
+
+        if (gameOver)
+        {
+            isStopTimer = true;
+            if (turn == ETurn.Player) enemy.timer.stopTimer();
+            else player.timer.stopTimer();
         }
     }
 
     void Awake()
     {
+        gameOver = false;
         turn = ETurn.Player;
         StartTurn();
         if (null == instance)
@@ -73,6 +105,7 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
     public static GameManager Instance
     {
         get
