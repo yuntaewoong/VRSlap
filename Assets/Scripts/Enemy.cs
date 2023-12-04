@@ -58,7 +58,6 @@ public class Enemy : MonoBehaviour
         if (GameManager.Instance.Turn == ETurn.Player)
         {
             attackCoroutine = StartCoroutine(SetAttackTime(GameManager.Instance.maxTimerCount));
-            timer.StartTimer();
         }
     }
 
