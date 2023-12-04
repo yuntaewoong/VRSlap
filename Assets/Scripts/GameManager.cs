@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int maxTimerCount;
     [SerializeField] private float stopTime;
     [SerializeField] public Player player;
-    [SerializeField] private Enemy enemy;
+    [SerializeField] public Enemy enemy;
 
     [SerializeField] private ETurn turn;
     private Coroutine timerCorutine;
