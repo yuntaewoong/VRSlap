@@ -6,23 +6,18 @@ using UnityEngine.UI;
 
 public class PlayerRangeLimiter : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI debugText;
-
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            debugText.text = "Player Out!!";
-            debugText.color = Color.red;
+            //플레이어 범위 이탈
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            debugText.text = "Player In";
-            debugText.color = Color.blue;
+            //플레이어 범위내부 
         }
     }
 }

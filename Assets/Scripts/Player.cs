@@ -14,20 +14,7 @@ public class Player : MonoBehaviour
     private Transform vrCamera;
     private int hp = 0;
 
-    [SerializeField] Image[] hpImage = null;
     private AudioSource slapsound;
-    public PlayerTimer timer;
-
-    void SettingHpImage()
-    {
-        for (int i = 0; i < hpImage.Length; i++)
-        {
-            if (i < hp)
-                hpImage[i].gameObject.SetActive(true);
-            else
-                hpImage[i].gameObject.SetActive(false);
-        }
-    }
 
     void PlaySlapSound(int volume)
     {
@@ -70,8 +57,6 @@ public class Player : MonoBehaviour
             GameManager.Instance.gameOver = true;
         }
 
-        // UI
-        SettingHpImage();
         // Sound
         PlaySlapSound(100);
 

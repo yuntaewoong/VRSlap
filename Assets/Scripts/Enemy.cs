@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     private int attackTime;
     public Coroutine attackCoroutine;
     private AudioSource slapsound;
-    public EnemyTimer timer;
     [SerializeField] Image[] hpImage = null;
 
     void PlaySlapSound(int volume)
@@ -31,18 +30,6 @@ public class Enemy : MonoBehaviour
         this.slapsound.Play();
 
     }
-
-    void SettingHpImage()
-    {
-        for (int i = 0; i < hpImage.Length; i++)
-        {
-            if (i < hp)
-                hpImage[i].gameObject.SetActive(true);
-            else
-                hpImage[i].gameObject.SetActive(false);
-        }
-    }
-
     public int Hp
     {
         get => hp;
@@ -59,7 +46,6 @@ public class Enemy : MonoBehaviour
         if (GameManager.Instance.Turn == ETurn.Player)
         {
             attackCoroutine = StartCoroutine(SetAttackTime(GameManager.Instance.maxTimerCount));
-            timer.StartTimer();
         }
     }
 
@@ -100,8 +86,6 @@ public class Enemy : MonoBehaviour
             GameManager.Instance.gameOver = true;
         }
 
-        // UI
-        SettingHpImage();
     }
 
     IEnumerator ReturnToIdle()

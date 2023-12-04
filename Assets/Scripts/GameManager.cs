@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int maxTimerCount;
     [SerializeField] private float stopTime;
     [SerializeField] public Player player;
-    [SerializeField] private Enemy enemy;
+    [SerializeField] public Enemy enemy;
 
     [SerializeField] private ETurn turn;
     private Coroutine timerCorutine;
@@ -37,12 +37,10 @@ public class GameManager : MonoBehaviour
         if (turn == ETurn.Player)
         {
             enemy.attackCoroutine = StartCoroutine(enemy.SetAttackTime(maxTimerCount));
-            enemy.timer.StartTimer();
         }
         else
         {
             enemy.SetAvoidTime(maxTimerCount);
-            player.timer.StartTimer();
             enemy.isHit = false;
         };
     }
@@ -66,8 +64,6 @@ public class GameManager : MonoBehaviour
             }
             else // Player나 Enemy가 맞은 경우
             {
-                if (turn == ETurn.Player) enemy.timer.stopTimer();
-                else player.timer.stopTimer();
 
                 yield return new WaitForSeconds(stopTime);
 
@@ -85,8 +81,6 @@ public class GameManager : MonoBehaviour
         if (gameOver)
         {
             isStopTimer = true;
-            if (turn == ETurn.Player) enemy.timer.stopTimer();
-            else player.timer.stopTimer();
         }
     }
 
