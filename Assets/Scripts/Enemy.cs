@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     private int attackTime;
     public Coroutine attackCoroutine;
     private AudioSource slapsound;
-    public EnemyTimer timer;
     [SerializeField] Image[] hpImage = null;
 
     void PlaySlapSound(int volume)

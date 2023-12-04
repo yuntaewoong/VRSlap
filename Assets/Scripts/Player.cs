@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] Image[] hpImage = null;
     private AudioSource slapsound;
-    public PlayerTimer timer;
 
     void SettingHpImage()
     {
