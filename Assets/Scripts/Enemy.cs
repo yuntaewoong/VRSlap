@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
             // Animation
             animator.SetTrigger("Defeat");
             GameManager.Instance.isStopTimer = true;
-            GameManager.Instance.gameOver = true;
+            GameManager.Instance.isGameOver = true;
         }
 
     }

@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
         {
             //hp가 0이 될 시
             Debug.Log("패배");
-            GameManager.Instance.gameOver = true;
+            GameManager.Instance.isGameOver = true;
         }
 
         // Sound

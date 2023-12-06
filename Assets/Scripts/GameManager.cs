@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     public bool isStopTimer;
     public int timerCount;
-    public bool gameOver;
+    public bool isGameOver;
 
     public ETurn Turn
     {
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Timer()
     {
-        while (!gameOver)
+        while (!isGameOver)
         {
             if (timerCount == 0)
             {
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
                 yield return new WaitForSeconds(stopTime);
 
-                if (!gameOver)
+                if (!isGameOver)
                 {
                     isStopTimer = false;
 
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (gameOver)
+        if (isGameOver)
         {
             isStopTimer = true;
         }
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        gameOver = false;
+        isGameOver = false;
         turn = ETurn.Player;
         StartTurn();
         if (null == instance)
