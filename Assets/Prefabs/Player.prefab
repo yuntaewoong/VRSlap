@@ -3533,6 +3533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 3
+  centerEyeAnchor: {fileID: 0}
 --- !u!114 &7938212217108421352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5953,6 +5954,7 @@ GameObject:
   - component: {fileID: 2137911315568144441}
   - component: {fileID: 5069654992517037577}
   - component: {fileID: 7396433784954516187}
+  - component: {fileID: 298278378759696041}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: Player
@@ -6057,6 +6059,18 @@ CapsuleCollider:
   m_Height: 0.3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &298278378759696041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2743396759243723246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925896748ec165848beef1804cb95977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2803385065801907154
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,12 +38,6 @@ public class Player : MonoBehaviour
     {//핸드트래킹 박수입력시 실행
         InitPosition();
     }
-
-    private void OnTriggerEnter(Collider other)
-    {//플레이어가 싸대기 맞은 경우
-        GetSlapped();
-    }
-
     public void GetSlapped()
     {
         Debug.Log("Slapped Player");

@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 357775898490109839, guid: a61382b06de0e0340927d62cfc3bc24d, type: 3}
+      propertyPath: m_TagString
+      value: EnemyHand
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a61382b06de0e0340927d62cfc3bc24d, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -73,6 +77,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a61382b06de0e0340927d62cfc3bc24d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 878251815459376174}
+    - targetCorrespondingSourceObject: {fileID: 357775898490109839, guid: a61382b06de0e0340927d62cfc3bc24d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2704763073846812479}
   m_SourcePrefab: {fileID: 100100000, guid: a61382b06de0e0340927d62cfc3bc24d, type: 3}
 --- !u!1 &320370678834751830 stripped
 GameObject:
@@ -116,8 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 3
   animator: {fileID: 6474438036194650518}
-  isAvoid: 0
-  hpImage: []
+  isHit: 0
 --- !u!54 &878251815459376174
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -145,6 +151,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &883925941969660808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 357775898490109839, guid: a61382b06de0e0340927d62cfc3bc24d, type: 3}
+  m_PrefabInstance: {fileID: 626922558086206471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2704763073846812479
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883925941969660808}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.033580247, y: 0.19937527, z: 0.08346681}
+  m_Center: {x: 0.0041961563, y: 0.057572603, z: 0.018417595}
 --- !u!95 &6474438036194650518 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: a61382b06de0e0340927d62cfc3bc24d, type: 3}
