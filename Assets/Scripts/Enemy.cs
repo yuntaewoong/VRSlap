@@ -22,12 +22,11 @@ public class Enemy : MonoBehaviour
     private int attackTime;
     public Coroutine attackCoroutine;
     private AudioSource slapsound;
-    [SerializeField] Image[] hpImage = null;
 
     void PlaySlapSound(int volume)
     {
-        this.slapsound.volume = volume * 0.01f;
-        this.slapsound.Play();
+        slapsound.volume = volume * 0.01f;
+        slapsound.Play();
 
     }
     public int Hp
@@ -51,7 +50,9 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {   //적이 싸대기 맞은 경우
-        Debug.Log("OnTriggerEnter");
+        if (other.gameObject.tag != "ToDO:플레이어 손의 태그이름")
+            return;
+        Debug.Log("OnTriggerEnter Enemy");
         // Player가 때릴 차례이고, Enemy가 피하지 않았으며
         // Enemy가 해당 턴에 맞지 않은 경우에만 Slap 처리함.
         if (GameManager.Instance.Turn == ETurn.Enemy && !isHit)
@@ -83,7 +84,7 @@ public class Enemy : MonoBehaviour
             // Animation
             animator.SetTrigger("Defeat");
             GameManager.Instance.isStopTimer = true;
-            GameManager.Instance.gameOver = true;
+            GameManager.Instance.isGameOver = true;
         }
 
     }
@@ -165,7 +166,6 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         Debug.Log("Attack");
-        GameManager.Instance.player.GetSlapped();
         StopCoroutine(attackCoroutine);
         StartCoroutine(SwitchTurnAfterAttack());
     }
