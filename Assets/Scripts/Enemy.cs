@@ -22,12 +22,11 @@ public class Enemy : MonoBehaviour
     private int attackTime;
     public Coroutine attackCoroutine;
     private AudioSource slapsound;
-    [SerializeField] Image[] hpImage = null;
 
     void PlaySlapSound(int volume)
     {
-        this.slapsound.volume = volume * 0.01f;
-        this.slapsound.Play();
+        slapsound.volume = volume * 0.01f;
+        slapsound.Play();
 
     }
     public int Hp
