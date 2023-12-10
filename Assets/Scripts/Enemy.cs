@@ -50,9 +50,10 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {   //적이 싸대기 맞은 경우
-        if (other.gameObject.tag != "ToDO:플레이어 손의 태그이름")
+        if (other.gameObject.tag != "Player")
             return;
-        Debug.Log("OnTriggerEnter Enemy");
+        Vector3 rightHandVelocity = GameManager.Instance.player.GetRightHandVelocity();
+        Debug.Log(rightHandVelocity.magnitude);//플레이어 핸드트래킹 속력 출력
         // Player가 때릴 차례이고, Enemy가 피하지 않았으며
         // Enemy가 해당 턴에 맞지 않은 경우에만 Slap 처리함.
         if (GameManager.Instance.Turn == ETurn.Enemy && !isHit)

@@ -11,11 +11,15 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int maxHp;
     [SerializeField] private Transform centerEyeAnchor;
+    [SerializeField] private OVRHand rightHand;
     private Transform vrCamera;
     private int hp = 0;
 
     private AudioSource slapsound;
-
+    
+    private Vector3 newPosRight;
+    private Vector3 prevPosRight;
+    private Vector3 rightHandVelocity;
     void PlaySlapSound(int volume)
     {
         this.slapsound.volume = volume * 0.01f;
@@ -27,13 +31,22 @@ public class Player : MonoBehaviour
         get => hp;
     }
 
-    void Start()
+    private void Start()
     {
         hp = maxHp;
         slapsound = GetComponent<AudioSource>();
         vrCamera = transform.GetChild(0);
     }
-
+    private void Update()
+    {
+        newPosRight = rightHand.transform.position;
+        rightHandVelocity = (newPosRight - prevPosRight);
+        prevPosRight = newPosRight;
+    }
+    public Vector3 GetRightHandVelocity()
+    {
+        return rightHandVelocity;
+    }
     public void OnClap()
     {//핸드트래킹 박수입력시 실행
         InitPosition();

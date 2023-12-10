@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     private Player player;
+    
     private void Start()
     {
         player = GetComponentInParent<Player>();
