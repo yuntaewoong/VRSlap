@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
             StartTurn();
         }
     }
+    public void StartGame()
+    {
+        StartTurn();
+    }
 
     private void StartTurn()
     {
@@ -88,7 +92,6 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = false;
         turn = ETurn.Player;
-        StartTurn();
         if (null == instance)
         {
             instance = this;
