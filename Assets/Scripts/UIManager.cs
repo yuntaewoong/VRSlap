@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider roseSlider;
     [SerializeField] private Slider otherSlider;
 
-
+    [SerializeField] private TextMeshProUGUI turnText;
     private void Start()
     {
         roseSlider.maxValue = GameManager.Instance.maxTimerCount-1;
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviour
     {
         UpdateSlider();
         UpdateHP();
+        UpdateTurnText();
     }
 
     private void UpdateSlider()
@@ -47,5 +49,18 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < otherObjects.Length; i++)
             otherObjects[i].SetActive((i < enemyHP));
     }
-
+    private void UpdateTurnText()
+    {
+        switch(GameManager.Instance.Turn)
+        {
+            case ETurn.Player:
+                turnText.text = "플레이어 턴";
+                turnText.color = Color.green;
+                break;
+            case ETurn.Enemy:
+                turnText.text = "적 턴";
+                turnText.color = Color.red;
+                break;
+        }
+    }
 }
