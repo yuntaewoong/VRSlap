@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHp;
     [SerializeField] private Transform centerEyeAnchor;
     [SerializeField] private OVRHand rightHand;
+    [SerializeField] private Transform playerInitTransform;
     private Transform vrCamera;
     private int hp = 0;
 
@@ -85,7 +86,11 @@ public class Player : MonoBehaviour
             float difference = 0 - currentRotY;
             gameObject.transform.Rotate(0, difference, 0); // InteractionSystem.Anchor This refence a Player
 
-            Vector3 newPos = new Vector3(0 - centerEyeAnchor.transform.position.x, 0, 0 - centerEyeAnchor.transform.position.z);
+            Vector3 newPos = new Vector3(
+                playerInitTransform.position.x - centerEyeAnchor.transform.position.x,
+                playerInitTransform.position.y - centerEyeAnchor.transform.position.y,
+                playerInitTransform.position.z - centerEyeAnchor.transform.position.z
+            );
             gameObject.transform.position += newPos;
         }
     }
