@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private Coroutine avoidTimerCoroutine;
     // 다음에 회피할 시각
     private int nextAvoidTime;
-    private bool isAvoid;
+    public bool isAvoid;
     
     // Enemy의 turn일 경우, 공격할 때
     private int attackTime;
@@ -42,10 +42,6 @@ public class Enemy : MonoBehaviour
         nextAvoidTime = -10;
         slapsound = GetComponent<AudioSource>();
         isAvoid = false;
-        if (GameManager.Instance.Turn == ETurn.Player)
-        {
-            attackCoroutine = StartCoroutine(SetAttackTime(GameManager.Instance.maxTimerCount));
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -56,13 +52,13 @@ public class Enemy : MonoBehaviour
         Debug.Log(rightHandVelocity.magnitude);//플레이어 핸드트래킹 속력 출력
         // Player가 때릴 차례이고, Enemy가 피하지 않았으며
         // Enemy가 해당 턴에 맞지 않은 경우에만 Slap 처리함.
-        if (GameManager.Instance.Turn == ETurn.Enemy && !isHit)
+        if (GameManager.Instance.Turn == ETurn.Player && !isHit)
         {
-            if (!isAvoid) GetSlapped();
+            if (!isAvoid) GetSlapped(rightHandVelocity.magnitude);
             //else counter;
         }
     }
-    public void GetSlapped()
+    public void GetSlapped(float handVelocity)
     {
         Debug.Log("Slapped Enemy");
         hp--;
@@ -73,11 +69,18 @@ public class Enemy : MonoBehaviour
 
         if (hp > 0)
         {
+            if (handVelocity >= 0.2) animator.SetTrigger("Slapped3");
+            else if (handVelocity >= 0.1) animator.SetTrigger("Slapped2");
+            else animator.SetTrigger("Slapped3");
+            GameManager.Instance.isStopTimer = true;
+
+            /*
             // Animation
             animator.SetBool("IsSlapped", true);
             StartCoroutine(ReturnToIdle());
 
             GameManager.Instance.isStopTimer = true;
+            */
         }
         else
         {
@@ -130,7 +133,7 @@ public class Enemy : MonoBehaviour
 
             // 현재 시간==피할 시간 이라면
             // 회피함
-            if (GameManager.Instance.timerCount == nextAvoidTime + 1)
+            if (GameManager.Instance.timerCount == nextAvoidTime + 1 && !isHit)
             {
                 animator.SetTrigger("Avoid");
                 nextAvoidTime = -10;
@@ -182,9 +185,9 @@ public class Enemy : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Z))
         {
-            if (GameManager.Instance.Turn == ETurn.Enemy && !isHit)
+            if (GameManager.Instance.Turn == ETurn.Player && !isHit)
             {
-                if (!isAvoid) GetSlapped();
+                if (!isAvoid) GetSlapped(0.2f);
                 //else counter;
             }
         }

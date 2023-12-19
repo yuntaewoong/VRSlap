@@ -37,15 +37,15 @@ public class GameManager : MonoBehaviour
             StopCoroutine(timerCorutine);
         timerCount = maxTimerCount;
         timerCorutine = StartCoroutine(Timer());
+        enemy.isHit = false;
 
-        if (turn == ETurn.Player)
+        if (turn == ETurn.Enemy)
         {
             enemy.attackCoroutine = StartCoroutine(enemy.SetAttackTime(maxTimerCount));
         }
         else
         {
             enemy.SetAvoidTime(maxTimerCount);
-            enemy.isHit = false;
         };
     }
 

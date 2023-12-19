@@ -12,4 +12,14 @@ public class InitUI : MonoBehaviour
         GameManager.Instance.StartGame();
         gameObject.SetActive(false);
     }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Z))
+        {
+            Debug.Log("Game Start Button Clicked");
+            GameManager.Instance.StartGame();
+            gameObject.SetActive(false);
+        }
+    }
 }
