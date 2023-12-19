@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.tag != "Player")
             return;
         Vector3 rightHandVelocity = GameManager.Instance.player.GetRightHandVelocity();
-        Debug.Log(rightHandVelocity.magnitude);//플레이어 핸드트래킹 속력 출력
+        //Debug.Log(rightHandVelocity.magnitude);//플레이어 핸드트래킹 속력 출력
         // Player가 때릴 차례이고, Enemy가 피하지 않았으며
         // Enemy가 해당 턴에 맞지 않은 경우에만 Slap 처리함.
         if (GameManager.Instance.Turn == ETurn.Player && !isHit)
@@ -60,37 +60,40 @@ public class Enemy : MonoBehaviour
     }
     public void GetSlapped(float handVelocity)
     {
-        Debug.Log("Slapped Enemy");
-        hp--;
-        isHit = true;
-
-        // Sound
-        PlaySlapSound(100);
-
-        if (hp > 0)
+        if (handVelocity > 0)
         {
-            if (handVelocity >= 0.2) animator.SetTrigger("Slapped3");
-            else if (handVelocity >= 0.1) animator.SetTrigger("Slapped2");
-            else animator.SetTrigger("Slapped3");
-            GameManager.Instance.isStopTimer = true;
+            Debug.Log("Slapped Enemy");
+            hp--;
+            isHit = true;
 
-            /*
-            // Animation
-            animator.SetBool("IsSlapped", true);
-            StartCoroutine(ReturnToIdle());
+            // Sound
+            PlaySlapSound(100);
 
-            GameManager.Instance.isStopTimer = true;
-            */
+            if (hp > 0)
+            {
+                Debug.Log(handVelocity);
+                if (handVelocity >= 0.1) animator.SetTrigger("Slapped3");
+                else if (handVelocity >= 0.06) animator.SetTrigger("Slapped2");
+                else if (handVelocity >= 0.001) animator.SetTrigger("Slapped1");
+                GameManager.Instance.isStopTimer = true;
+
+                /*
+                // Animation
+                animator.SetBool("IsSlapped", true);
+                StartCoroutine(ReturnToIdle());
+
+                GameManager.Instance.isStopTimer = true;
+                */
+            }
+            else
+            {
+                Debug.Log("승리");
+                // Animation
+                animator.SetTrigger("Defeat");
+                GameManager.Instance.isStopTimer = true;
+                GameManager.Instance.isGameOver = true;
+            }
         }
-        else
-        {
-            Debug.Log("승리");
-            // Animation
-            animator.SetTrigger("Defeat");
-            GameManager.Instance.isStopTimer = true;
-            GameManager.Instance.isGameOver = true;
-        }
-
     }
 
     IEnumerator ReturnToIdle()
@@ -126,20 +129,25 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Avoid()
     {
-        while (GameManager.Instance.timerCount > 0) {
-
-            // 다음에 피할 시간 정해 놓음
-            if (nextAvoidTime == -10 && avoidTime.Count > 0) nextAvoidTime = avoidTime.Pop();
-
-            // 현재 시간==피할 시간 이라면
-            // 회피함
-            if (GameManager.Instance.timerCount == nextAvoidTime + 1 && !isHit)
+        if (GameManager.Instance.Turn == ETurn.Player)
+        {
+            while (GameManager.Instance.timerCount > 0)
             {
-                animator.SetTrigger("Avoid");
-                nextAvoidTime = -10;
+
+                // 다음에 피할 시간 정해 놓음
+                if (nextAvoidTime == -10 && avoidTime.Count > 0) nextAvoidTime = avoidTime.Pop();
+
+                // 현재 시간==피할 시간 이라면
+                // 회피함
+                if (GameManager.Instance.timerCount == nextAvoidTime + 1 && !isHit && GameManager.Instance.Turn == ETurn.Player)
+                {
+                    animator.SetTrigger("Avoid");
+                    nextAvoidTime = -10;
+                }
+                yield return new WaitForSeconds(1.0f);
             }
-            yield return new WaitForSeconds(1.0f);
         }
+        else yield return null;
     }
 
     private void SetIsAvoid(int flag)
@@ -156,15 +164,19 @@ public class Enemy : MonoBehaviour
         // 3~timeToTurn-2 사이 임의의 값
         attackTime = Random.Range(3, timeToTurn-1);
 
-        while (GameManager.Instance.timerCount > 0)
+        if (GameManager.Instance.Turn == ETurn.Enemy)
         {
-            if (GameManager.Instance.timerCount == attackTime)
+            while (GameManager.Instance.timerCount > 0)
             {
-                animator.SetTrigger("Attack");
-                break;
+                if (GameManager.Instance.timerCount == attackTime)
+                {
+                    animator.SetTrigger("Attack");
+                    break;
+                }
+                yield return new WaitForSeconds(1.0f);
             }
-            yield return new WaitForSeconds(1.0f);
         }
+        else yield return null;
     }
 
     private void Attack()
