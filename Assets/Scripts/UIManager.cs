@@ -32,10 +32,10 @@ public class UIManager : MonoBehaviour
         int timerCount = GameManager.Instance.timerCount;
         switch(currentTurn)
         {
-            case ETurn.Enemy:
+            case ETurn.Player:
                 roseSlider.value = timerCount-1;
                 break;
-            case ETurn.Player:
+            case ETurn.Enemy:
                 otherSlider.value = timerCount-1;
                 break;
         }
