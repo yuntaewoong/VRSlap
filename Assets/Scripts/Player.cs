@@ -68,7 +68,6 @@ public class Player : MonoBehaviour
         // Sound
         PlaySlapSound(100);
 
-        PlaySlapSound(100);
         GameManager.Instance.isStopTimer = true;
         StartCoroutine(CameraRotateAfterSlaped());
     }

@@ -67,8 +67,8 @@ public class Enemy : MonoBehaviour
             isHit = true;
 
             // Sound
-            PlaySlapSound(100);
-
+            PlaySlapSound(90);
+            
             if (hp > 0)
             {
                 Debug.Log(handVelocity);
