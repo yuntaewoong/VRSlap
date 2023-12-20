@@ -51,6 +51,13 @@ public class UIManager : MonoBehaviour
     }
     private void UpdateTurnText()
     {
+        if(GameManager.Instance.player.Hp == 0)
+        {
+            turnText.text = "당신은 죽었습니다";
+            turnText.color = Color.red;
+            return;
+        }
+
         switch(GameManager.Instance.Turn)
         {
             case ETurn.Player:
