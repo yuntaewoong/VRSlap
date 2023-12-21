@@ -198,6 +198,7 @@ public class Enemy : MonoBehaviour
     IEnumerator SwitchTurnAfterAttack()
     {
         animator.speed = 0.0f;
+        GameManager.Instance.isStopTimer = true;
         yield return new WaitForSeconds(1.5f);
         animator.speed = 1.0f;
     }
