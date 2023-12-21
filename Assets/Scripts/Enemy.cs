@@ -44,23 +44,32 @@ public class Enemy : MonoBehaviour
         isAvoid = false;
     }
 
+    bool CanEnemyAct()
+    {
+        if (isHit) return false;
+        if (GameManager.Instance.isStopTimer) return false;
+        if (GameManager.Instance.isGameOver) return false;
+        if (GameManager.Instance.timerCount < 1) return false;
+
+        return true;
+    }
+
     void OnTriggerEnter(Collider other)
     {   //적이 싸대기 맞은 경우
         if (other.gameObject.tag != "Player")
             return;
         Vector3 rightHandVelocity = GameManager.Instance.player.GetRightHandVelocity();
-        //Debug.Log(rightHandVelocity.magnitude);//플레이어 핸드트래킹 속력 출력
+
         // Player가 때릴 차례이고, Enemy가 피하지 않았으며
         // Enemy가 해당 턴에 맞지 않은 경우에만 Slap 처리함.
         if (GameManager.Instance.Turn == ETurn.Player && !isHit)
         {
             if (!isAvoid) GetSlapped(rightHandVelocity.magnitude);
-            //else counter;
         }
     }
     public void GetSlapped(float handVelocity)
     {
-        if (handVelocity > 0)
+        if (handVelocity > 0 && CanEnemyAct())
         {
             Debug.Log("Slapped Enemy");
             hp--;
@@ -139,7 +148,7 @@ public class Enemy : MonoBehaviour
 
                 // 현재 시간==피할 시간 이라면
                 // 회피함
-                if (GameManager.Instance.timerCount == nextAvoidTime + 1 && !isHit && GameManager.Instance.Turn == ETurn.Player)
+                if (GameManager.Instance.timerCount == nextAvoidTime + 1 && CanEnemyAct())
                 {
                     animator.SetTrigger("Avoid");
                     nextAvoidTime = -10;
@@ -168,7 +177,7 @@ public class Enemy : MonoBehaviour
         {
             while (GameManager.Instance.timerCount > 0)
             {
-                if (GameManager.Instance.timerCount == attackTime)
+                if (GameManager.Instance.timerCount == attackTime && CanEnemyAct())
                 {
                     animator.SetTrigger("Attack");
                     break;
