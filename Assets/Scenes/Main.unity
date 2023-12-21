@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325f3f4f9e4a80741b45bbf521ae47eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTimerCount: 6
+  maxTimerCount: 10
   stopTime: 2
   player: {fileID: 2056375611}
   enemy: {fileID: 1552937056}
