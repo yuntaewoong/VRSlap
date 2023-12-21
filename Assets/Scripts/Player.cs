@@ -48,8 +48,8 @@ public class Player : MonoBehaviour
     {
         return rightHandVelocity;
     }
-    public void OnClap()
-    {//핸드트래킹 박수입력시 실행
+    public void OnV()
+    {//핸드트래킹 V 입력시 실행
         InitPosition();
     }
     public void GetSlapped()
