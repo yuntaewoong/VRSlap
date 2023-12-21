@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
 
                 // 현재 시간==피할 시간 이라면
                 // 회피함
-                if (GameManager.Instance.timerCount == nextAvoidTime + 1 && CanEnemyAct())
+                if (GameManager.Instance.timerCount == nextAvoidTime + 1 && CanEnemyAct() && GameManager.Instance.Turn == ETurn.Player)
                 {
                     animator.SetTrigger("Avoid");
                     nextAvoidTime = -10;
